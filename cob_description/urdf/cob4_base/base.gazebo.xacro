@@ -48,5 +48,27 @@
     <canonicalBody>${name}_footprint</canonicalBody>
     </gazebo>
   </xacro:macro>
+  <xacro:macro name="base_gazebo" params="name">
+    <gazebo>
+    <plugin name="cob_imu_sim" filename="libgazebo_ros_imu.so">
+      <alwaysOn>true</alwaysOn>
+      <updateRate>50</updateRate>
+      <bodyName>base_link</bodyName>
+      <topicName>imu_data</topicName>
+      <gaussianNoise>0.00001</gaussianNoise>
+      <frameName>map</frameName>
+      <xyzOffsets>0 0 0</xyzOffsets>
+      <rpyOffsets>0 0 0</rpyOffsets>
+    </plugin>
 
+    <plugin name="cob_magnetic_sim" filename="libhector_gazebo_ros_magnetic.so">
+      <updateRate>10.0</updateRate>
+      <bodyName>base_link</bodyName>
+      <topicName>magnetic</topicName>
+      <offset>0 0 0</offset>
+      <drift>0.0 0.0 0.0</drift>
+      <gaussianNoise>1.3e-5 1.3e-5 1.3e-5</gaussianNoise>
+    </plugin>
+    </gazebo>
+  </xacro:macro>
 </robot>
